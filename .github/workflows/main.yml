@@ -33,59 +33,5 @@ jobs:
 
 
 
-def test_home():
-    client = app.test_client()
-    response = client.get("/")
-
-    assert response.status_code == 200
-    assert response.json["application"] == (
-        "Student Result Management System"
-    )
-
-
-def test_health():
-    client = app.test_client()
-    response = client.get("/health")
-
-    assert response.status_code == 200
-    assert response.json["status"] == "healthy"
-
-
-def test_student_result():
-    client = app.test_client()
-    response = client.get("/results/101")
-
-    assert response.status_code == 200
-    data = response.json
-
-    assert data["name"] == "Aarav Shah"
-    assert data["total"] == 251
-    assert data["percentage"] == 83.67
-    assert data["status"] == "PASS"
-
-
-def test_failed_student():
-    client = app.test_client()
-    response = client.get("/results/103")
-
-    assert response.status_code == 200
-    assert response.json["status"] == "FAIL"
-
-
-
-    client = app.test_client()
-    response = client.get("/results/999")
-
-    assert response.status_code == 404
-    assert response.json["error"] == (
-        "Student roll number not found"
-    )
-
-
-
-
-
-
-
 
 
